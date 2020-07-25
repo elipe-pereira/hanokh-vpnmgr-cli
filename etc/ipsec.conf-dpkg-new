@@ -1,0 +1,2 @@
+config setup
+    charondebug="ike 3, mgr 3, chd 2, net 3"

@@ -1,0 +1,22 @@
+#!/bin/bash
+ln -s /usr/share/vpnmgr/manager.sh /usr/bin/vpnmgr
+
+apt-get install apache2 -y || echo "Apache já está instalado"
+
+already_muttrc_configured=$(grep "source /etc/Muttrc.local" /etc/Muttrc |wc -l)
+if [[ ${already_muttrc_configured} -eq 0 ]];then
+    echo "source /etc/Muttrc.local" >> /etc/Muttrc
+fi
+
+a2enmod asis || echo "Módulo asis já está ativado"
+a2enmod cgi || echo "Módulo cgi já está ativado"
+a2enmod alias || echo "Módulo alias já está ativado"
+chown -R www-data.www-data /usr/share/vpnmgr-web && echo "Dando permissões ao usuário do apache para a pasta vpnmgr-web"
+a2ensite vpnmgr.conf && echo "Ativando vhost vpnmgr"
+service apache2 reload && echo "Reiniciando serviço apache"
+
+already_ipsec_configured=$(grep "include /etc/ipsec.d/instances/\*.conf" /etc/ipsec.conf| wc -l)
+if [[ "${already_ipsec_configured}" -eq 0 ]];then
+    echo "include /etc/ipsec.d/instances/*.conf" >> /etc/ipsec.conf
+fi
+

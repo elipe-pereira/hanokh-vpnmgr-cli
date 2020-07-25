@@ -1,0 +1,8 @@
+Section: misc
+Package: vpnmgr
+Priority: optional
+Version: 1.1.0.41
+Architecture: all
+Maintainer: Eli Florêncio Pereira
+Depends: openvpn, curl, mutt, apache2, libapache2-mod-fcgid, zip, apache2, strongswan
+Description: Pacote de administração do openvpn via linha de comando.
